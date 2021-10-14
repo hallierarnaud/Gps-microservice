@@ -1,16 +1,19 @@
 package tourGuide;
 
-import java.util.List;
+import com.jsoniter.output.JsonStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jsoniter.output.JsonStream;
+import java.util.List;
 
 import gpsUtil.location.VisitedLocation;
+import tourGuide.gps.model.Entity;
 import tourGuide.gps.service.LocationMS;
+import tourGuide.gps.dao.GpsDao;
 import tourGuide.service.TourGuideService;
 import tourGuide.user.User;
 import tripPricer.Provider;
@@ -23,6 +26,9 @@ public class TourGuideController {
 
 	@Autowired
     LocationMS locationMS;
+
+	@Autowired
+    private GpsDao gpsDao;
 	
     @RequestMapping("/")
     public String index() {
@@ -40,6 +46,11 @@ public class TourGuideController {
         VisitedLocation visitedLocation = locationMS.getUserLocation(getUser(userName));
         return JsonStream.serialize(visitedLocation.location);
     }
+
+    @GetMapping("/locations")
+    public List<Entity> userLocations() {
+    return gpsDao.findAll();
+  }
     
     //  TODO: Change this method to no longer return a List of Attractions.
  	//  Instead: Get the closest five tourist attractions to the user - no matter how far away they are.
