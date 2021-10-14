@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jsoniter.output.JsonStream;
 
 import gpsUtil.location.VisitedLocation;
+import tourGuide.gps.service.LocationMS;
 import tourGuide.service.TourGuideService;
 import tourGuide.user.User;
 import tripPricer.Provider;
@@ -19,16 +20,25 @@ public class TourGuideController {
 
 	@Autowired
 	TourGuideService tourGuideService;
+
+	@Autowired
+    LocationMS locationMS;
 	
     @RequestMapping("/")
     public String index() {
         return "Greetings from TourGuide!";
     }
     
-    @RequestMapping("/getLocation") 
+    /*@RequestMapping("/getLocation")
     public String getLocation(@RequestParam String userName) {
     	VisitedLocation visitedLocation = tourGuideService.getUserLocation(getUser(userName));
 		return JsonStream.serialize(visitedLocation.location);
+    }*/
+
+    @RequestMapping("/getLocation")
+    public String getLocationThroughMS(@RequestParam String userName) {
+        VisitedLocation visitedLocation = locationMS.getUserLocation(getUser(userName));
+        return JsonStream.serialize(visitedLocation.location);
     }
     
     //  TODO: Change this method to no longer return a List of Attractions.
