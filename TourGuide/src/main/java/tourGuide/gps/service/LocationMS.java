@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -16,12 +17,14 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import gpsUtil.GpsUtil;
+import gpsUtil.location.Attraction;
 import gpsUtil.location.Location;
 import gpsUtil.location.VisitedLocation;
 import tourGuide.gps.tracker.TrackerMS;
 import tourGuide.helper.InternalTestHelper;
 import tourGuide.service.TourGuideService;
 import tourGuide.user.User;
+import tourGuide.user.UserReward;
 
 @Service
 public class LocationMS {
@@ -55,11 +58,42 @@ public class LocationMS {
     return visitedLocation;
   }
 
+  //add method to mimic running
+  public String getUserLocationCheck(String userName) {
+    return userName;
+  }
+
   public VisitedLocation trackUserLocation(User user) {
     VisitedLocation visitedLocation = gpsUtil.getUserLocation(user.getUserId());
     user.addToVisitedLocations(visitedLocation);
     return visitedLocation;
   }
+
+  /*public List<Attraction> getNearByAttractions(VisitedLocation visitedLocation) {
+    List<Attraction> nearbyAttractions = new ArrayList<>();
+    for(Attraction attraction : gpsUtil.getAttractions()) {
+      if(rewardsService.isWithinAttractionProximity(attraction, visitedLocation.location)) {
+        nearbyAttractions.add(attraction);
+      }
+    }
+
+    return nearbyAttractions;
+  }*/
+
+  /*public void calculateRewards(User user) {
+    List<VisitedLocation> userLocations = user.getVisitedLocations();
+    List<Attraction> attractions = gpsUtil.getAttractions();
+
+    for(VisitedLocation visitedLocation : userLocations) {
+      for(Attraction attraction : attractions) {
+        if(user.getUserRewards().stream().filter(r -> r.attraction.attractionName.equals(attraction.attractionName)).count() == 0) {
+          if(nearAttraction(visitedLocation, attraction)) {
+            user.addUserReward(new UserReward(visitedLocation, attraction, getRewardPoints(attraction, user)));
+          }
+        }
+      }
+    }
+  }*/
 
   private void addShutDownHook() {
     Runtime.getRuntime().addShutdownHook(new Thread() {

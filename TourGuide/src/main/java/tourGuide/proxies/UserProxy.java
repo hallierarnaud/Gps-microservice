@@ -12,4 +12,8 @@ public interface UserProxy {
   @GetMapping(value = "/getUserThroughApplication")
   User getUserThroughApplication(@RequestParam String userName);
 
+  //add an endpoint to get userName through application
+  @GetMapping(value = "/getUserNameCheck")
+  String getUserNameCheckThroughApplication(@RequestParam String userName);
+
 }

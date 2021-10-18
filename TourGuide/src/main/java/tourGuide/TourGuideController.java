@@ -96,4 +96,15 @@ public class TourGuideController {
       return userProxy.getUserThroughApplication(userName);
     }
 
+    //add two endpoints to enable communication between application and microservice
+    @GetMapping("/getUserNameCheck")
+    public String getUsernameCheckThroughApplication(String userName) {
+      return userProxy.getUserNameCheckThroughApplication(userName);
+    }
+    @RequestMapping("/getLocationCheck")
+    public String getLocationCheckWithUserThroughApplication(String userName) {
+      String visitedLocation = locationMS.getUserLocationCheck(getUsernameCheckThroughApplication(userName));
+      return visitedLocation;
+    }
+
 }
