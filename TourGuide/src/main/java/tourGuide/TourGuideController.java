@@ -3,6 +3,7 @@ package tourGuide;
 import com.jsoniter.output.JsonStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,6 +12,7 @@ import java.util.List;
 
 import gpsUtil.location.VisitedLocation;
 import tourGuide.gps.service.LocationMS;
+import tourGuide.proxies.UserProxy;
 import tourGuide.service.TourGuideService;
 import tourGuide.user.User;
 import tripPricer.Provider;
@@ -23,6 +25,9 @@ public class TourGuideController {
 
 	@Autowired
     LocationMS locationMS;
+
+	@Autowired
+    private UserProxy userProxy;
 	
     @RequestMapping("/")
     public String index() {
@@ -37,7 +42,7 @@ public class TourGuideController {
 
     @RequestMapping("/getLocation")
     public String getLocationThroughMS(@RequestParam String userName) {
-        VisitedLocation visitedLocation = locationMS.getUserLocation(getUser(userName));
+        VisitedLocation visitedLocation = locationMS.getUserLocation(getUserThroughApplication(userName));
         return JsonStream.serialize(visitedLocation.location);
     }
     
@@ -85,6 +90,10 @@ public class TourGuideController {
     private User getUser(String userName) {
     	return tourGuideService.getUser(userName);
     }
-   
+
+    @GetMapping("/getUserThroughApplication")
+    public User getUserThroughApplication(String userName) {
+      return userProxy.getUserThroughApplication(userName);
+    }
 
 }
