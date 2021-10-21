@@ -46,6 +46,13 @@ public class TourGuideController {
         VisitedLocation visitedLocation = locationMS.getUserLocation(getUserThroughApplication(userName));
         return JsonStream.serialize(visitedLocation.location);
     }
+
+    //add an endpoint to get user's location without the back and forth
+    @RequestMapping("/getLocationWithUser")
+    public String getLocationThroughMSWithUser(@RequestParam String userName) {
+        VisitedLocation visitedLocation = locationMS.getUserLocation(getUser(userName));
+        return JsonStream.serialize(visitedLocation.location);
+    }
     
     //  TODO: Change this method to no longer return a List of Attractions.
  	//  Instead: Get the closest five tourist attractions to the user - no matter how far away they are.
