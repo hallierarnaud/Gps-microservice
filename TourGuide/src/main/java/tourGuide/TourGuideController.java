@@ -96,6 +96,18 @@ public class TourGuideController {
       return userProxy.getUserThroughApplication(userName);
     }
 
+    //add an endpoint to get user through application
+    @GetMapping("/getUser")
+    public User getUserThroughEndPoint(String userName) {
+      return userProxy.getUserThroughEndPoint(userName);
+    }
+
+    //add an endpoint to get user directly through GpsIsolation
+    @GetMapping("/getUserInGpsIsolation")
+    public User getUserEndPoint(String userName) {
+      return tourGuideService.getUser(userName);
+    }
+
     //add two endpoints to enable communication between application and microservice
     @GetMapping("/getUserNameCheck")
     public String getUsernameCheckThroughApplication(String userName) {
