@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-import gpsUtil.location.Attraction;
 import gpsUtil.location.VisitedLocation;
+import tourGuide.gps.DTO.AttractionRequest;
 import tourGuide.gps.service.LocationMS;
 import tourGuide.proxies.UserProxy;
 import tourGuide.service.TourGuideService;
@@ -96,9 +96,13 @@ public class TourGuideController {
     }
 
     @GetMapping("/getAttractions")
-    public List<Attraction> getAttractions() {
+    public List<AttractionRequest> getAttractions() {
         return locationMS.getAttractions();
     }
+    /*@GetMapping("/getAttraction")
+    public AttractionResponse getAttraction(@RequestParam int attractionNumber) {
+        return locationMS.getAttraction(attractionNumber);
+    }*/
     
     @RequestMapping("/getTripDeals")
     public String getTripDeals(@RequestParam String userName) {

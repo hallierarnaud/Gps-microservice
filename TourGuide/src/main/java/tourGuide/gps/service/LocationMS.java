@@ -2,6 +2,7 @@ package tourGuide.gps.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -20,14 +21,19 @@ import gpsUtil.GpsUtil;
 import gpsUtil.location.Attraction;
 import gpsUtil.location.Location;
 import gpsUtil.location.VisitedLocation;
+import tourGuide.gps.DTO.AttractionRequest;
+import tourGuide.gps.DTO.MapService;
 import tourGuide.gps.tracker.TrackerMS;
 import tourGuide.helper.InternalTestHelper;
 import tourGuide.service.TourGuideService;
 import tourGuide.user.User;
-import tourGuide.user.UserReward;
 
 @Service
 public class LocationMS {
+
+  @Autowired
+  private MapService mapService;
+
   private static final double STATUTE_MILES_PER_NAUTICAL_MILE = 1.15077945;
 
   private Logger logger = LoggerFactory.getLogger(TourGuideService.class);
@@ -101,9 +107,18 @@ public class LocationMS {
     return user.getVisitedLocations();
   }
 
-  public List<Attraction> getAttractions() {
-    return gpsUtil.getAttractions();
+  public List<AttractionRequest> getAttractions() {
+    List<Attraction> attractionList = gpsUtil.getAttractions();
+    List<AttractionRequest> attractionRequestList = new ArrayList<>();
+    for(Attraction attraction : attractionList) {
+      AttractionRequest attractionRequest = mapService.convertAttractionToAttractionRequest(attraction);
+      attractionRequestList.add(attractionRequest);
+    }
+    return attractionRequestList;
   }
+  /*public AttractionResponse getAttraction(int attractionNumber) {
+    return mapService.convertAttractionToAttractionResponse(gpsUtil.getAttractions().get(attractionNumber));
+  }*/
 
   private void addShutDownHook() {
     Runtime.getRuntime().addShutdownHook(new Thread() {
