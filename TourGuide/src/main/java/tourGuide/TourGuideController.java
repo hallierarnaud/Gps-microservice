@@ -12,6 +12,7 @@ import java.util.List;
 
 import gpsUtil.location.VisitedLocation;
 import tourGuide.gps.DTO.AttractionRequest;
+import tourGuide.gps.DTO.VisitedLocationRequest;
 import tourGuide.gps.service.LocationMS;
 import tourGuide.proxies.UserProxy;
 import tourGuide.service.TourGuideService;
@@ -91,7 +92,7 @@ public class TourGuideController {
     }
 
     @GetMapping("/getVisitedLocations")
-    public List<VisitedLocation> getVisitedLocations(@RequestParam String userName) {
+    public List<VisitedLocationRequest> getVisitedLocations(@RequestParam String userName) {
         return locationMS.getVisitedLocations(getUser(userName));
     }
 

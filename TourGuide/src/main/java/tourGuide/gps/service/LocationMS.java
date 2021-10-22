@@ -23,6 +23,7 @@ import gpsUtil.location.Location;
 import gpsUtil.location.VisitedLocation;
 import tourGuide.gps.DTO.AttractionRequest;
 import tourGuide.gps.DTO.MapService;
+import tourGuide.gps.DTO.VisitedLocationRequest;
 import tourGuide.gps.tracker.TrackerMS;
 import tourGuide.helper.InternalTestHelper;
 import tourGuide.service.TourGuideService;
@@ -103,8 +104,14 @@ public class LocationMS {
     return statuteMiles;
   }
 
-  public List<VisitedLocation> getVisitedLocations(User user) {
-    return user.getVisitedLocations();
+  public List<VisitedLocationRequest> getVisitedLocations(User user) {
+    List<VisitedLocation> visitedLocationList = user.getVisitedLocations();
+    List<VisitedLocationRequest> visitedLocationRequestList = new ArrayList<>();
+    for(VisitedLocation visitedLocation : visitedLocationList) {
+      VisitedLocationRequest visitedLocationRequest = mapService.convertVisitedLocationToVisitedLocationRequest(visitedLocation);
+      visitedLocationRequestList.add(visitedLocationRequest);
+    }
+    return visitedLocationRequestList;
   }
 
   public List<AttractionRequest> getAttractions() {
