@@ -15,16 +15,11 @@ import tourGuide.gps.DTO.AttractionRequest;
 import tourGuide.gps.DTO.VisitedLocationRequest;
 import tourGuide.gps.service.LocationMS;
 import tourGuide.proxies.UserProxy;
-import tourGuide.service.TourGuideService;
 import tourGuide.user.User;
 import tourGuide.user.UserDTOResponse;
-import tripPricer.Provider;
 
 @RestController
 public class TourGuideController {
-
-	@Autowired
-	TourGuideService tourGuideService;
 
 	@Autowired
     LocationMS locationMS;
@@ -71,11 +66,6 @@ public class TourGuideController {
     	return JsonStream.serialize(locationMS.getNearByAttractions(visitedLocation));
     }
     
-    @RequestMapping("/getRewards") 
-    public String getRewards(@RequestParam String userName) {
-    	return JsonStream.serialize(tourGuideService.getUserRewards(getUser(userName)));
-    }
-    
     @RequestMapping("/getAllCurrentLocations")
     public String getAllCurrentLocations() {
     	// TODO: Get a list of every user's most recent location as JSON
@@ -104,13 +94,7 @@ public class TourGuideController {
     public AttractionResponse getAttraction(@RequestParam int attractionNumber) {
         return locationMS.getAttraction(attractionNumber);
     }*/
-    
-    @RequestMapping("/getTripDeals")
-    public String getTripDeals(@RequestParam String userName) {
-    	List<Provider> providers = tourGuideService.getTripDeals(getUser(userName));
-    	return JsonStream.serialize(providers);
-    }
-    
+
     private User getUser(String userName) {
     	return tourGuideService.getUser(userName);
     }

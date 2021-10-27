@@ -24,9 +24,7 @@ import gpsUtil.location.VisitedLocation;
 import tourGuide.gps.DTO.AttractionRequest;
 import tourGuide.gps.DTO.MapService;
 import tourGuide.gps.DTO.VisitedLocationRequest;
-import tourGuide.gps.tracker.TrackerMS;
 import tourGuide.helper.InternalTestHelper;
-import tourGuide.service.TourGuideService;
 import tourGuide.user.User;
 
 @Service
@@ -37,23 +35,13 @@ public class LocationMS {
 
   private static final double STATUTE_MILES_PER_NAUTICAL_MILE = 1.15077945;
 
-  private Logger logger = LoggerFactory.getLogger(TourGuideService.class);
+  private Logger logger = LoggerFactory.getLogger(LocationMS.class);
   private final GpsUtil gpsUtil;
-  public final TrackerMS trackerMS;
   boolean testMode = true;
   private int attractionProximityRange = 200;
 
   public LocationMS(GpsUtil gpsUtil) {
     this.gpsUtil = gpsUtil;
-
-    if(testMode) {
-      logger.info("TestMode enabled");
-      logger.debug("Initializing users");
-      initializeInternalUsers();
-      logger.debug("Finished initializing users");
-    }
-    trackerMS = new TrackerMS(this);
-    addShutDownHook();
   }
 
   public List<User> getAllUsers() {
@@ -126,14 +114,6 @@ public class LocationMS {
   /*public AttractionResponse getAttraction(int attractionNumber) {
     return mapService.convertAttractionToAttractionResponse(gpsUtil.getAttractions().get(attractionNumber));
   }*/
-
-  private void addShutDownHook() {
-    Runtime.getRuntime().addShutdownHook(new Thread() {
-      public void run() {
-        trackerMS.stopTracking();
-      }
-    });
-  }
 
   /**********************************************************************************
    *
