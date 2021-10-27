@@ -15,8 +15,7 @@ import tourGuide.gps.DTO.AttractionRequest;
 import tourGuide.gps.DTO.VisitedLocationRequest;
 import tourGuide.gps.service.LocationMS;
 import tourGuide.proxies.UserProxy;
-import tourGuide.user.User;
-import tourGuide.user.UserDTOResponse;
+import tourGuide.user.UserDTO;
 
 @RestController
 public class TourGuideController {
@@ -40,14 +39,14 @@ public class TourGuideController {
 
     @RequestMapping("/getLocation")
     public String getLocationThroughMS(@RequestParam String userName) {
-        VisitedLocation visitedLocation = locationMS.getUserLocation(getUserThroughApplication(userName));
+        VisitedLocation visitedLocation = locationMS.getUserLocation(getUserDTOThroughApplication(userName));
         return JsonStream.serialize(visitedLocation.location);
     }
 
     //add an endpoint to get user's location without the back and forth
     @RequestMapping("/getLocationWithUser")
     public String getLocationThroughMSWithUser(@RequestParam String userName) {
-        VisitedLocation visitedLocation = locationMS.getUserLocation(getUser(userName));
+        VisitedLocation visitedLocation = locationMS.getUserLocation(getUserDTO(userName));
         return JsonStream.serialize(visitedLocation.location);
     }
     
@@ -62,7 +61,7 @@ public class TourGuideController {
         //    Note: Attraction reward points can be gathered from RewardsCentral
     @RequestMapping("/getNearbyAttractions") 
     public String getNearbyAttractions(@RequestParam String userName) {
-    	VisitedLocation visitedLocation = locationMS.getUserLocation(getUser(userName));
+    	VisitedLocation visitedLocation = locationMS.getUserLocation(getUserDTO(userName));
     	return JsonStream.serialize(locationMS.getNearByAttractions(visitedLocation));
     }
     
@@ -83,7 +82,7 @@ public class TourGuideController {
 
     @GetMapping("/getVisitedLocations")
     public List<VisitedLocationRequest> getVisitedLocations(@RequestParam String userName) {
-        return locationMS.getVisitedLocations(getUser(userName));
+        return locationMS.getVisitedLocations(getUserDTO(userName));
     }
 
     @GetMapping("/getAttractions")
@@ -95,31 +94,31 @@ public class TourGuideController {
         return locationMS.getAttraction(attractionNumber);
     }*/
 
-    private User getUser(String userName) {
-    	return tourGuideService.getUser(userName);
+    private UserDTO getUserDTO(String userName) {
+    	return locationMS.getUserDTO(userName);
     }
 
     @GetMapping("/getUserThroughApplication")
-    public User getUserThroughApplication(String userName) {
+    public UserDTO getUserDTOThroughApplication(String userName) {
       return userProxy.getUserThroughApplication(userName);
     }
 
     //add an endpoint to get user through application
     @GetMapping("/getUser")
-    public User getUserThroughEndPoint(String userName) {
+    public UserDTO getUserThroughEndPoint(String userName) {
       return userProxy.getUserThroughEndPoint(userName);
     }
 
     //add an endpoint to get userDTO through application
     @GetMapping("/getUserDTO")
-    public UserDTOResponse getUserDTOThroughEndPoint(String userName) {
+    public UserDTO getUserDTOThroughEndPoint(String userName) {
         return userProxy.getUserDTOThroughEndPoint(userName);
     }
 
     //add an endpoint to get user directly through GpsIsolation
     @GetMapping("/getUserInGpsIsolation")
-    public User getUserEndPoint(String userName) {
-      return tourGuideService.getUser(userName);
+    public UserDTO getUserDTOEndPoint(String userName) {
+      return locationMS.getUserDTO(userName);
     }
 
     //add two endpoints to enable communication between application and microservice

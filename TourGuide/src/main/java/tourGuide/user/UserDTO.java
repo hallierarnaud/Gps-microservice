@@ -7,10 +7,9 @@ import java.util.UUID;
 
 import gpsUtil.location.VisitedLocation;
 import lombok.Data;
-import tripPricer.Provider;
 
 @Data
-public class UserDTOResponse {
+public class UserDTO {
 
   private UUID userId;
   private String userName;
@@ -18,8 +17,13 @@ public class UserDTOResponse {
   private String emailAddress;
   private Date latestLocationTimestamp;
   private List<VisitedLocation> visitedLocations = new ArrayList<>();
-  private List<UserReward> userRewards = new ArrayList<>();
-  private UserPreferences userPreferences = new UserPreferences();
-  private List<Provider> tripDeals = new ArrayList<>();
+
+  public void addToVisitedLocations(VisitedLocation visitedLocation) {
+    visitedLocations.add(visitedLocation);
+  }
+
+  public VisitedLocation getLastVisitedLocation() {
+    return visitedLocations.get(visitedLocations.size() - 1);
+  }
 
 }
