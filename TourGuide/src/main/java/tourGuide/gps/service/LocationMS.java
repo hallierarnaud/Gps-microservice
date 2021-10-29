@@ -5,26 +5,36 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import gpsUtil.GpsUtil;
 import gpsUtil.location.Attraction;
 import gpsUtil.location.Location;
 import gpsUtil.location.VisitedLocation;
+import tourGuide.TourGuideController;
 import tourGuide.gps.DTO.AttractionRequest;
 import tourGuide.gps.DTO.MapService;
 import tourGuide.gps.DTO.VisitedLocationRequest;
 import tourGuide.user.UserDTO;
+import tourGuide.user.UserDTOFromMainService;
 
 @Service
 public class LocationMS {
 
   @Autowired
   private MapService mapService;
+
+  @Autowired
+  private TourGuideController tourGuideController;
 
   private static final double STATUTE_MILES_PER_NAUTICAL_MILE = 1.15077945;
   private Logger logger = LoggerFactory.getLogger(LocationMS.class);
@@ -35,20 +45,33 @@ public class LocationMS {
     this.gpsUtil = gpsUtil;
   }
 
+
+
+  //Modification de cette méthode
   public UserDTO getUserDTO(String userName) {
-    return internalUserMap.get(userName);
+    UserDTOFromMainService userDTOFromMainService = tourGuideController.getUserDTOThroughEndPoint(userName);
+    UserDTO userDTO = new UserDTO();
+    userDTO.setUserId(userDTOFromMainService.getUserId());
+    userDTO.setUserName(userDTOFromMainService.getUserName());
+    userDTO.setPhoneNumber(userDTOFromMainService.getPhoneNumber());
+    userDTO.setEmailAddress(userDTOFromMainService.getEmailAddress());
+    userDTO.setLatestLocationTimestamp(getRandomTime());
+    return userDTO;
   }
+
+
 
   public List<UserDTO> getAllUsersDTO() {
     return internalUserMap.values().stream().collect(Collectors.toList());
   }
 
-  public VisitedLocation getUserLocation(UserDTO userDTO) {
+  //Commentage de cette méthode
+  /*public VisitedLocation getUserLocation(UserDTO userDTO) {
     VisitedLocation visitedLocation = (userDTO.getVisitedLocations().size() > 0) ?
             userDTO.getLastVisitedLocation() :
             trackUserLocation(userDTO);
     return visitedLocation;
-  }
+  }*/
 
   //add method to mimic running
   public String getUserLocationCheck(String userName) {
@@ -118,22 +141,17 @@ public class LocationMS {
   //private static final String tripPricerApiKey = "test-server-api-key";
   // Database connection will be used for external users, but for testing purposes internal users are provided and stored in memory
   private final Map<String, UserDTO> internalUserMap = new HashMap<>();
-  /*private void initializeInternalUsers() {
-    IntStream.range(0, InternalTestHelper.getInternalUserNumber()).forEach(i -> {
-      String userName = "internalUser" + i;
-      String phone = "000";
-      String email = userName + "@tourGuide.com";
-      User user = new User(UUID.randomUUID(), userName, phone, email);
-      generateUserLocationHistory(user);
 
-      internalUserMap.put(userName, user);
-    });
-    logger.debug("Created " + InternalTestHelper.getInternalUserNumber() + " internal test users.");
+  //Modification de ces méthodes
+  private void initializeInternalUser(String userName) {
+      UserDTO userDTO = getUserDTO(userName);
+      generateUserLocationHistory(userDTO);
+      internalUserMap.put(userName, userDTO);
   }
 
-  private void generateUserLocationHistory(User user) {
+  private void generateUserLocationHistory(UserDTO userDTO) {
     IntStream.range(0, 3).forEach(i-> {
-      user.addToVisitedLocations(new VisitedLocation(user.getUserId(), new Location(generateRandomLatitude(), generateRandomLongitude()), getRandomTime()));
+      userDTO.addToVisitedLocations(new VisitedLocation(userDTO.getUserId(), new Location(generateRandomLatitude(), generateRandomLongitude()), getRandomTime()));
     });
   }
 
@@ -152,6 +170,6 @@ public class LocationMS {
   private Date getRandomTime() {
     LocalDateTime localDateTime = LocalDateTime.now().minusDays(new Random().nextInt(30));
     return Date.from(localDateTime.toInstant(ZoneOffset.UTC));
-  }*/
+  }
 
 }

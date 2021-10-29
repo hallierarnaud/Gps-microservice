@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import tourGuide.user.UserDTO;
+import tourGuide.user.UserDTOFromMainService;
 
 @FeignClient(name = "tourGuide-application", url = "localhost:8080")
 public interface UserProxy {
@@ -20,8 +21,11 @@ public interface UserProxy {
   @GetMapping(value = "/getUser")
   UserDTO getUserThroughEndPoint(@RequestParam String userName);
 
+
+
+  //Utilisation de cet endpoint
   //add an endpoint to get userDTO through application
   @GetMapping(value = "/getUserDTO")
-  UserDTO getUserDTOThroughEndPoint(@RequestParam String userName);
+  UserDTOFromMainService getUserDTOThroughEndPoint(@RequestParam String userName);
 
 }

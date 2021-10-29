@@ -22,8 +22,9 @@ public class UserDTO {
     visitedLocations.add(visitedLocation);
   }
 
-  public VisitedLocation getLastVisitedLocation() {
+  //Commentage de cette méthode
+  /*public VisitedLocation getLastVisitedLocation() {
     return visitedLocations.get(visitedLocations.size() - 1);
-  }
+  }*/
 
 }
