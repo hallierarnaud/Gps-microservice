@@ -114,14 +114,14 @@ public class TourGuideController {
     }
 
 
-
+/*Y
     //Utilisation de cet endpoint
     //add an endpoint to get userDTO through application
     @GetMapping("/userDTOFromMainService")
     public UserDTOFromMainService getUserDTOFromMainService(String userName) {
         return userProxy.getUserDTOFromMainService(userName);
     }
-
+*/
 
 
     //Utilisation de cet endpoint

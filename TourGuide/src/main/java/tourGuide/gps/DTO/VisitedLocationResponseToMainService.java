@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class VisitedLocationResponseToMainService {
 
-  public UUID userId;
+  //Y public UUID userId;
   public LocationResponseToMainService locationResponseToMainService;
   public Date timeVisited;
 
