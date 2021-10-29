@@ -83,10 +83,11 @@ public class TourGuideController {
     	return JsonStream.serialize("");
     }
 
-    @GetMapping("/getVisitedLocations")
+    //Commentage de cette méthode suite au dernière modification
+    /*@GetMapping("/getVisitedLocations")
     public List<VisitedLocationResponseToMainService> getVisitedLocations(@RequestParam String userName) {
         return locationMS.getVisitedLocations(getUserDTO(userName));
-    }
+    }*
 
     @GetMapping("/getAttractions")
     public List<AttractionResponseToMainService> getAttractions() {
@@ -98,7 +99,7 @@ public class TourGuideController {
     }*/
 
     private UserDTOToMainService getUserDTO(String userName) {
-    	return locationMS.getUserDTOToMainService(userName);
+    	return locationMS.returnModifiedUserDTOToMainService(userName);
     }
 
     @GetMapping("/getUserThroughApplication")
@@ -127,7 +128,7 @@ public class TourGuideController {
     //add an endpoint to get user directly through GpsIsolation
     @GetMapping("/userDTOFromGpsService")
     public UserDTOToMainService getUserDTOToMainService(String userName) {
-      return locationMS.getUserDTOToMainService(userName);
+      return locationMS.returnModifiedUserDTOToMainService(userName);
     }
 
 

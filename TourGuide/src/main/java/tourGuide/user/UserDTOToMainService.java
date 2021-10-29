@@ -5,8 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import gpsUtil.location.VisitedLocation;
 import lombok.Data;
+import tourGuide.gps.DTO.VisitedLocationResponseToMainService;
 
 @Data
 public class UserDTOToMainService {
@@ -16,11 +16,11 @@ public class UserDTOToMainService {
   private String phoneNumber;
   private String emailAddress;
   private Date latestLocationTimestamp;
-  private List<VisitedLocation> visitedLocations = new ArrayList<>();
+  private List<VisitedLocationResponseToMainService> visitedLocationResponseToMainServiceList = new ArrayList<>();
 
-  public void addToVisitedLocations(VisitedLocation visitedLocation) {
-    visitedLocations.add(visitedLocation);
-  }
+  /*public void addToVisitedLocationResponseToMainServiceList(VisitedLocationResponseToMainService visitedLocationResponseToMainService) {
+    visitedLocationResponseToMainServiceList.add(visitedLocationResponseToMainService);
+  }*/
 
   //Commentage de cette méthode
   /*public VisitedLocation getLastVisitedLocation() {
