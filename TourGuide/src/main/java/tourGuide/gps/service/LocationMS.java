@@ -25,6 +25,7 @@ import tourGuide.gps.DTO.AttractionResponseToMainService;
 import tourGuide.gps.DTO.LocationResponseToMainService;
 import tourGuide.gps.DTO.MapService;
 import tourGuide.gps.DTO.VisitedLocationResponseToMainService;
+import tourGuide.proxies.UserProxy;
 import tourGuide.user.UserDTOToMainService;
 import tourGuide.user.UserDTOFromMainService;
 
@@ -35,7 +36,7 @@ public class LocationMS {
   private MapService mapService;
 
   @Autowired
-  private TourGuideController tourGuideController;
+  private UserProxy userProxy;
 
   private static final double STATUTE_MILES_PER_NAUTICAL_MILE = 1.15077945;
   private Logger logger = LoggerFactory.getLogger(LocationMS.class);
@@ -50,15 +51,12 @@ public class LocationMS {
 
   //Modification de cette méthode
   public UserDTOToMainService returnModifiedUserDTOToMainService(String userName) {
-    UserDTOFromMainService userDTOFromMainService = tourGuideController.getUserDTOFromMainService(userName);
+    //Y retrait de l'appel au service principal
     UserDTOToMainService userDTOToMainService = new UserDTOToMainService();
-    userDTOToMainService.setUserId(userDTOFromMainService.getUserId());
-    userDTOToMainService.setUserName(userDTOFromMainService.getUserName());
-    userDTOToMainService.setPhoneNumber(userDTOFromMainService.getPhoneNumber());
-    userDTOToMainService.setEmailAddress(userDTOFromMainService.getEmailAddress());
-    initializeInternalUser(userName);
+    //Y récupération directement du userDTOFromMainService
+    UserDTOFromMainService userDTOFromMainService = initializeInternalUser(userName);
     userDTOToMainService.setLatestLocationTimestamp(getRandomTime());
-    userDTOToMainService.setVisitedLocationResponseToMainServiceList(getModifiedUserDTOFromMainService(userName).getVisitedLocationResponseToMainServiceList());
+    userDTOToMainService.setVisitedLocationResponseToMainServiceList(userDTOFromMainService.getVisitedLocationResponseToMainServiceList());
     return userDTOToMainService;
   }
 
@@ -150,15 +148,17 @@ public class LocationMS {
   private final Map<String, UserDTOFromMainService> internalUserMap = new HashMap<>();
 
   //Modification de ces méthodes
-  private void initializeInternalUser(String userName) {
-      UserDTOFromMainService userDTOFromMainService = tourGuideController.getUserDTOFromMainService(userName);
+  private UserDTOFromMainService initializeInternalUser(String userName) {
+      //Y appel au proxy directement et retour d'un UserDTOFromMainService
+      UserDTOFromMainService userDTOFromMainService = userProxy.getUserDTOFromMainService(userName);
       generateUserLocationHistory(userDTOFromMainService);
-      internalUserMap.put(userName, userDTOFromMainService);
+      return userDTOFromMainService;
   }
 
   private void generateUserLocationHistory(UserDTOFromMainService userDTOFromMainService) {
     IntStream.range(0, 3).forEach(i-> {
-      userDTOFromMainService.addToVisitedLocationResponseToMainServiceList(new VisitedLocationResponseToMainService(userDTOFromMainService.getUserId(), new LocationResponseToMainService(generateRandomLatitude(), generateRandomLongitude()), getRandomTime()));
+      //Y retrait de l'Id
+      userDTOFromMainService.addToVisitedLocationResponseToMainServiceList(new VisitedLocationResponseToMainService(new LocationResponseToMainService(generateRandomLatitude(), generateRandomLongitude()), getRandomTime()));
     });
   }
 
