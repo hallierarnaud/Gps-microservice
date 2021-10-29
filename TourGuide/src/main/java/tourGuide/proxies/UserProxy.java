@@ -25,7 +25,7 @@ public interface UserProxy {
 
   //Utilisation de cet endpoint
   //add an endpoint to get userDTO through application
-  @GetMapping(value = "/getUserDTO")
-  UserDTOFromMainService getUserDTOThroughEndPoint(@RequestParam String userName);
+  @GetMapping(value = "/userDTOFromMainService")
+  UserDTOFromMainService getUserDTOFromMainService(@RequestParam String userName);
 
 }

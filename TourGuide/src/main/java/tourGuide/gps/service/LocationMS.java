@@ -48,8 +48,8 @@ public class LocationMS {
 
 
   //Modification de cette méthode
-  public UserDTOToMainService getUserDTO(String userName) {
-    UserDTOFromMainService userDTOFromMainService = tourGuideController.getUserDTOThroughEndPoint(userName);
+  public UserDTOToMainService getUserDTOToMainService(String userName) {
+    UserDTOFromMainService userDTOFromMainService = tourGuideController.getUserDTOFromMainService(userName);
     UserDTOToMainService userDTOToMainService = new UserDTOToMainService();
     userDTOToMainService.setUserId(userDTOFromMainService.getUserId());
     userDTOToMainService.setUserName(userDTOFromMainService.getUserName());
@@ -144,7 +144,7 @@ public class LocationMS {
 
   //Modification de ces méthodes
   private void initializeInternalUser(String userName) {
-      UserDTOToMainService userDTOToMainService = getUserDTO(userName);
+      UserDTOToMainService userDTOToMainService = getUserDTOToMainService(userName);
       generateUserLocationHistory(userDTOToMainService);
       internalUserMap.put(userName, userDTOToMainService);
   }
