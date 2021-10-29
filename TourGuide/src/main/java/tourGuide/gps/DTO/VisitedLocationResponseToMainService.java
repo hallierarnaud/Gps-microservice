@@ -6,10 +6,10 @@ import java.util.UUID;
 import lombok.Data;
 
 @Data
-public class VisitedLocationRequest {
+public class VisitedLocationResponseToMainService {
 
   public UUID userId;
-  public LocationRequest locationRequest;
+  public LocationResponseToMainService locationResponseToMainService;
   public Date timeVisited;
 
 }

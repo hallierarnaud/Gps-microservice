@@ -3,7 +3,7 @@ package tourGuide.gps.DTO;
 import lombok.Data;
 
 @Data
-public class LocationRequest {
+public class LocationResponseToMainService {
 
   public double longitude;
   public double latitude;

@@ -5,7 +5,7 @@ import java.util.UUID;
 import lombok.Data;
 
 @Data
-public class AttractionRequest {
+public class AttractionResponseToMainService {
 
   public UUID attractionId;
   public String attractionName;

@@ -21,9 +21,9 @@ import gpsUtil.location.Attraction;
 import gpsUtil.location.Location;
 import gpsUtil.location.VisitedLocation;
 import tourGuide.TourGuideController;
-import tourGuide.gps.DTO.AttractionRequest;
+import tourGuide.gps.DTO.AttractionResponseToMainService;
 import tourGuide.gps.DTO.MapService;
-import tourGuide.gps.DTO.VisitedLocationRequest;
+import tourGuide.gps.DTO.VisitedLocationResponseToMainService;
 import tourGuide.user.UserDTO;
 import tourGuide.user.UserDTOFromMainService;
 
@@ -110,24 +110,24 @@ public class LocationMS {
     return statuteMiles;
   }
 
-  public List<VisitedLocationRequest> getVisitedLocations(UserDTO userDTO) {
+  public List<VisitedLocationResponseToMainService> getVisitedLocations(UserDTO userDTO) {
     List<VisitedLocation> visitedLocationList = userDTO.getVisitedLocations();
-    List<VisitedLocationRequest> visitedLocationRequestList = new ArrayList<>();
+    List<VisitedLocationResponseToMainService> visitedLocationResponseToMainServiceList = new ArrayList<>();
     for(VisitedLocation visitedLocation : visitedLocationList) {
-      VisitedLocationRequest visitedLocationRequest = mapService.convertVisitedLocationToVisitedLocationRequest(visitedLocation);
-      visitedLocationRequestList.add(visitedLocationRequest);
+      VisitedLocationResponseToMainService visitedLocationResponseToMainService = mapService.convertVisitedLocationToVisitedLocationResponseToMainService(visitedLocation);
+      visitedLocationResponseToMainServiceList.add(visitedLocationResponseToMainService);
     }
-    return visitedLocationRequestList;
+    return visitedLocationResponseToMainServiceList;
   }
 
-  public List<AttractionRequest> getAttractions() {
+  public List<AttractionResponseToMainService> getAttractions() {
     List<Attraction> attractionList = gpsUtil.getAttractions();
-    List<AttractionRequest> attractionRequestList = new ArrayList<>();
+    List<AttractionResponseToMainService> attractionResponseToMainServiceList = new ArrayList<>();
     for(Attraction attraction : attractionList) {
-      AttractionRequest attractionRequest = mapService.convertAttractionToAttractionRequest(attraction);
-      attractionRequestList.add(attractionRequest);
+      AttractionResponseToMainService attractionResponseToMainService = mapService.convertAttractionToAttractionResponseToMainService(attraction);
+      attractionResponseToMainServiceList.add(attractionResponseToMainService);
     }
-    return attractionRequestList;
+    return attractionResponseToMainServiceList;
   }
   /*public AttractionResponse getAttraction(int attractionNumber) {
     return mapService.convertAttractionToAttractionResponse(gpsUtil.getAttractions().get(attractionNumber));

@@ -11,30 +11,30 @@ import gpsUtil.location.VisitedLocation;
 @Service
 public class MapService {
 
-  public AttractionRequest convertAttractionToAttractionRequest(Attraction attraction) {
-    AttractionRequest attractionRequest = new AttractionRequest();
-    attractionRequest.setAttractionId(UUID.randomUUID());
-    attractionRequest.setAttractionName(attraction.attractionName);
-    attractionRequest.setCity(attraction.city);
-    attractionRequest.setState(attraction.state);
-    attractionRequest.setLongitude(attraction.longitude);
-    attractionRequest.setLatitude(attraction.latitude);
-    return attractionRequest;
+  public AttractionResponseToMainService convertAttractionToAttractionResponseToMainService(Attraction attraction) {
+    AttractionResponseToMainService attractionResponseToMainService = new AttractionResponseToMainService();
+    attractionResponseToMainService.setAttractionId(UUID.randomUUID());
+    attractionResponseToMainService.setAttractionName(attraction.attractionName);
+    attractionResponseToMainService.setCity(attraction.city);
+    attractionResponseToMainService.setState(attraction.state);
+    attractionResponseToMainService.setLongitude(attraction.longitude);
+    attractionResponseToMainService.setLatitude(attraction.latitude);
+    return attractionResponseToMainService;
   }
 
-  public LocationRequest convertLocationToLocationRequest(Location location) {
-    LocationRequest locationRequest = new LocationRequest();
-    locationRequest.setLongitude(location.longitude);
-    locationRequest.setLatitude(location.latitude);
-    return locationRequest;
+  public LocationResponseToMainService convertLocationToLocationResponseToMainService(Location location) {
+    LocationResponseToMainService locationResponseToMainService = new LocationResponseToMainService();
+    locationResponseToMainService.setLongitude(location.longitude);
+    locationResponseToMainService.setLatitude(location.latitude);
+    return locationResponseToMainService;
   }
 
-  public VisitedLocationRequest convertVisitedLocationToVisitedLocationRequest(VisitedLocation visitedLocation) {
-    VisitedLocationRequest visitedLocationRequest = new VisitedLocationRequest();
-    visitedLocationRequest.setUserId(visitedLocation.userId);
-    visitedLocationRequest.setLocationRequest(convertLocationToLocationRequest(visitedLocation.location));
-    visitedLocationRequest.setTimeVisited(visitedLocation.timeVisited);
-    return visitedLocationRequest;
+  public VisitedLocationResponseToMainService convertVisitedLocationToVisitedLocationResponseToMainService(VisitedLocation visitedLocation) {
+    VisitedLocationResponseToMainService visitedLocationResponseToMainService = new VisitedLocationResponseToMainService();
+    visitedLocationResponseToMainService.setUserId(visitedLocation.userId);
+    visitedLocationResponseToMainService.setLocationResponseToMainService(convertLocationToLocationResponseToMainService(visitedLocation.location));
+    visitedLocationResponseToMainService.setTimeVisited(visitedLocation.timeVisited);
+    return visitedLocationResponseToMainService;
   }
 
 }

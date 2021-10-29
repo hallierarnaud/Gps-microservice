@@ -10,9 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-import gpsUtil.location.VisitedLocation;
-import tourGuide.gps.DTO.AttractionRequest;
-import tourGuide.gps.DTO.VisitedLocationRequest;
+import tourGuide.gps.DTO.AttractionResponseToMainService;
+import tourGuide.gps.DTO.VisitedLocationResponseToMainService;
 import tourGuide.gps.service.LocationMS;
 import tourGuide.proxies.UserProxy;
 import tourGuide.user.UserDTO;
@@ -85,12 +84,12 @@ public class TourGuideController {
     }
 
     @GetMapping("/getVisitedLocations")
-    public List<VisitedLocationRequest> getVisitedLocations(@RequestParam String userName) {
+    public List<VisitedLocationResponseToMainService> getVisitedLocations(@RequestParam String userName) {
         return locationMS.getVisitedLocations(getUserDTO(userName));
     }
 
     @GetMapping("/getAttractions")
-    public List<AttractionRequest> getAttractions() {
+    public List<AttractionResponseToMainService> getAttractions() {
         return locationMS.getAttractions();
     }
     /*@GetMapping("/getAttraction")
