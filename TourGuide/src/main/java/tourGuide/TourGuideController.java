@@ -14,7 +14,7 @@ import tourGuide.gps.DTO.AttractionResponseToMainService;
 import tourGuide.gps.DTO.VisitedLocationResponseToMainService;
 import tourGuide.gps.service.LocationMS;
 import tourGuide.proxies.UserProxy;
-import tourGuide.user.UserDTO;
+import tourGuide.user.UserDTOToMainService;
 import tourGuide.user.UserDTOFromMainService;
 
 @RestController
@@ -97,18 +97,18 @@ public class TourGuideController {
         return locationMS.getAttraction(attractionNumber);
     }*/
 
-    private UserDTO getUserDTO(String userName) {
+    private UserDTOToMainService getUserDTO(String userName) {
     	return locationMS.getUserDTO(userName);
     }
 
     @GetMapping("/getUserThroughApplication")
-    public UserDTO getUserDTOThroughApplication(String userName) {
+    public UserDTOToMainService getUserDTOThroughApplication(String userName) {
       return userProxy.getUserThroughApplication(userName);
     }
 
     //add an endpoint to get user through application
     @GetMapping("/getUser")
-    public UserDTO getUserThroughEndPoint(String userName) {
+    public UserDTOToMainService getUserThroughEndPoint(String userName) {
       return userProxy.getUserThroughEndPoint(userName);
     }
 
@@ -126,7 +126,7 @@ public class TourGuideController {
     //Utilisation de cet endpoint
     //add an endpoint to get user directly through GpsIsolation
     @GetMapping("/getUserInGpsIsolation")
-    public UserDTO getUserDTOEndPoint(String userName) {
+    public UserDTOToMainService getUserDTOEndPoint(String userName) {
       return locationMS.getUserDTO(userName);
     }
 

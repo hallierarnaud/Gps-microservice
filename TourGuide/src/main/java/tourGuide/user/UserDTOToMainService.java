@@ -9,7 +9,7 @@ import gpsUtil.location.VisitedLocation;
 import lombok.Data;
 
 @Data
-public class UserDTO {
+public class UserDTOToMainService {
 
   private UUID userId;
   private String userName;
