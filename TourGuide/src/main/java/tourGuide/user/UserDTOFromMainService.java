@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import lombok.Data;
-import tourGuide.gps.DTO.VisitedLocationResponseToMainService;
+import tourGuide.gps.DTO.VisitedLocationResponse;
 
 @Data
 public class UserDTOFromMainService {
@@ -14,10 +14,10 @@ public class UserDTOFromMainService {
   private String userName;
   private String phoneNumber;
   private String emailAddress;
-  private List<VisitedLocationResponseToMainService> visitedLocationResponseToMainServiceList = new ArrayList<>();
+  private List<VisitedLocationResponse> visitedLocationResponseList = new ArrayList<>();
 
-  public void addToVisitedLocationResponseToMainServiceList(VisitedLocationResponseToMainService visitedLocationResponseToMainService) {
-    visitedLocationResponseToMainServiceList.add(visitedLocationResponseToMainService);
+  public void addToVisitedLocationResponseToMainServiceList(VisitedLocationResponse visitedLocationResponse) {
+    visitedLocationResponseList.add(visitedLocationResponse);
   }
 
 }

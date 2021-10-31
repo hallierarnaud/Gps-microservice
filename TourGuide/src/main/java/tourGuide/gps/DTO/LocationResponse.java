@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LocationResponseToMainService {
+public class LocationResponse {
 
   public double longitude;
   public double latitude;

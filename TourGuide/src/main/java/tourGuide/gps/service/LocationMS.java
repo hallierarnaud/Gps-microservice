@@ -20,11 +20,10 @@ import gpsUtil.GpsUtil;
 import gpsUtil.location.Attraction;
 import gpsUtil.location.Location;
 import gpsUtil.location.VisitedLocation;
-import tourGuide.TourGuideController;
-import tourGuide.gps.DTO.AttractionResponseToMainService;
-import tourGuide.gps.DTO.LocationResponseToMainService;
+import tourGuide.gps.DTO.AttractionResponse;
+import tourGuide.gps.DTO.LocationResponse;
 import tourGuide.gps.DTO.MapService;
-import tourGuide.gps.DTO.VisitedLocationResponseToMainService;
+import tourGuide.gps.DTO.VisitedLocationResponse;
 import tourGuide.proxies.UserProxy;
 import tourGuide.user.UserDTOToMainService;
 import tourGuide.user.UserDTOFromMainService;
@@ -56,7 +55,7 @@ public class LocationMS {
     //Y récupération directement du userDTOFromMainService
     UserDTOFromMainService userDTOFromMainService = initializeInternalUser(userName);
     userDTOToMainService.setLatestLocationTimestamp(getRandomTime());
-    userDTOToMainService.setVisitedLocationResponseToMainServiceList(userDTOFromMainService.getVisitedLocationResponseToMainServiceList());
+    userDTOToMainService.setVisitedLocationResponseList(userDTOFromMainService.getVisitedLocationResponseList());
     return userDTOToMainService;
   }
 
@@ -84,7 +83,7 @@ public class LocationMS {
   //Commentage de cette méthode suite au dernière modification
   /*public VisitedLocation trackUserLocation(UserDTOToMainService userDTOToMainService) {
     VisitedLocation visitedLocation = gpsUtil.getUserLocation(userDTOToMainService.getUserId());
-    userDTOToMainService.addToVisitedLocationResponseToMainServiceList(mapService.convertVisitedLocationToVisitedLocationResponseToMainService(visitedLocation));
+    userDTOToMainService.addToVisitedLocationResponseList(mapService.convertVisitedLocationToVisitedLocationResponse(visitedLocation));
     return visitedLocation;
   }*/
 
@@ -115,24 +114,24 @@ public class LocationMS {
   }
 
   //Commentage de cette méthode suite au dernière modification
-  /*public List<VisitedLocationResponseToMainService> getVisitedLocations(UserDTOToMainService userDTOToMainService) {
+  /*public List<VisitedLocationResponse> getVisitedLocations(UserDTOToMainService userDTOToMainService) {
     List<VisitedLocation> visitedLocationList = userDTOToMainService.getVisitedLocations();
-    List<VisitedLocationResponseToMainService> visitedLocationResponseToMainServiceList = new ArrayList<>();
+    List<VisitedLocationResponse> visitedLocationResponseList = new ArrayList<>();
     for(VisitedLocation visitedLocation : visitedLocationList) {
-      VisitedLocationResponseToMainService visitedLocationResponseToMainService = mapService.convertVisitedLocationToVisitedLocationResponseToMainService(visitedLocation);
-      visitedLocationResponseToMainServiceList.add(visitedLocationResponseToMainService);
+      VisitedLocationResponse visitedLocationResponse = mapService.convertVisitedLocationToVisitedLocationResponse(visitedLocation);
+      visitedLocationResponseList.add(visitedLocationResponse);
     }
-    return visitedLocationResponseToMainServiceList;
+    return visitedLocationResponse;
   }*/
 
-  public List<AttractionResponseToMainService> getAttractions() {
+  public List<AttractionResponse> getAttractions() {
     List<Attraction> attractionList = gpsUtil.getAttractions();
-    List<AttractionResponseToMainService> attractionResponseToMainServiceList = new ArrayList<>();
+    List<AttractionResponse> attractionResponseList = new ArrayList<>();
     for(Attraction attraction : attractionList) {
-      AttractionResponseToMainService attractionResponseToMainService = mapService.convertAttractionToAttractionResponseToMainService(attraction);
-      attractionResponseToMainServiceList.add(attractionResponseToMainService);
+      AttractionResponse attractionResponse = mapService.convertAttractionToAttractionResponse(attraction);
+      attractionResponseList.add(attractionResponse);
     }
-    return attractionResponseToMainServiceList;
+    return attractionResponseList;
   }
   /*public AttractionResponse getAttraction(int attractionNumber) {
     return mapService.convertAttractionToAttractionResponse(gpsUtil.getAttractions().get(attractionNumber));
@@ -158,7 +157,7 @@ public class LocationMS {
   private void generateUserLocationHistory(UserDTOFromMainService userDTOFromMainService) {
     IntStream.range(0, 3).forEach(i-> {
       //Y retrait de l'Id
-      userDTOFromMainService.addToVisitedLocationResponseToMainServiceList(new VisitedLocationResponseToMainService(new LocationResponseToMainService(generateRandomLatitude(), generateRandomLongitude()), getRandomTime()));
+      userDTOFromMainService.addToVisitedLocationResponseToMainServiceList(new VisitedLocationResponse(new LocationResponse(generateRandomLatitude(), generateRandomLongitude()), getRandomTime()));
     });
   }
 

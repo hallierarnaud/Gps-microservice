@@ -3,10 +3,9 @@ package tourGuide.user;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import lombok.Data;
-import tourGuide.gps.DTO.VisitedLocationResponseToMainService;
+import tourGuide.gps.DTO.VisitedLocationResponse;
 
 @Data
 public class UserDTOToMainService {
@@ -16,10 +15,10 @@ public class UserDTOToMainService {
   private String phoneNumber;
   private String emailAddress;*/
   private Date latestLocationTimestamp;
-  private List<VisitedLocationResponseToMainService> visitedLocationResponseToMainServiceList = new ArrayList<>();
+  private List<VisitedLocationResponse> visitedLocationResponseList = new ArrayList<>();
 
-  /*public void addToVisitedLocationResponseToMainServiceList(VisitedLocationResponseToMainService visitedLocationResponseToMainService) {
-    visitedLocationResponseToMainServiceList.add(visitedLocationResponseToMainService);
+  /*public void addToVisitedLocationResponseList(VisitedLocationResponse visitedLocationResponse) {
+    visitedLocationResponseList.add(visitedLocationResponse);
   }*/
 
   //Commentage de cette méthode

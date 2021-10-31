@@ -5,17 +5,11 @@ import com.jsoniter.output.JsonStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
-import tourGuide.gps.DTO.AttractionResponseToMainService;
-import tourGuide.gps.DTO.VisitedLocationResponseToMainService;
 import tourGuide.gps.service.LocationMS;
 import tourGuide.proxies.UserProxy;
 import tourGuide.user.UserDTOToMainService;
-import tourGuide.user.UserDTOFromMainService;
 
 @RestController
 public class TourGuideController {
@@ -85,12 +79,12 @@ public class TourGuideController {
 
     //Commentage de cette méthode suite au dernière modification
     /*@GetMapping("/getVisitedLocations")
-    public List<VisitedLocationResponseToMainService> getVisitedLocations(@RequestParam String userName) {
+    public List<VisitedLocationResponse> getVisitedLocations(@RequestParam String userName) {
         return locationMS.getVisitedLocations(getUserDTO(userName));
     }*
 
     @GetMapping("/getAttractions")
-    public List<AttractionResponseToMainService> getAttractions() {
+    public List<AttractionResponse> getAttractions() {
         return locationMS.getAttractions();
     }
     /*@GetMapping("/getAttraction")
