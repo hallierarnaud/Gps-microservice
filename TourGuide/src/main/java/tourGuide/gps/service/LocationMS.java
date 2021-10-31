@@ -31,7 +31,7 @@ import tourGuide.user.UserDTOFromMainService;
 @Service
 public class LocationMS {
 
-  @Autowired
+  /*@Autowired
   private MapService mapService;
 
   @Autowired
@@ -44,12 +44,12 @@ public class LocationMS {
 
   public LocationMS(GpsUtil gpsUtil) {
     this.gpsUtil = gpsUtil;
-  }
+  }*/
 
 
 
   //Modification de cette méthode
-  public UserDTOToMainService returnModifiedUserDTOToMainService(String userName) {
+  /*public UserDTOToMainService returnModifiedUserDTOToMainService(String userName) {
     //Y retrait de l'appel au service principal
     UserDTOToMainService userDTOToMainService = new UserDTOToMainService();
     //Y récupération directement du userDTOFromMainService
@@ -57,15 +57,15 @@ public class LocationMS {
     userDTOToMainService.setLatestLocationTimestamp(getRandomTime());
     userDTOToMainService.setVisitedLocationResponseList(userDTOFromMainService.getVisitedLocationResponseList());
     return userDTOToMainService;
-  }
+  }*/
 
-  public UserDTOFromMainService getModifiedUserDTOFromMainService(String userName) {
+  /*public UserDTOFromMainService getModifiedUserDTOFromMainService(String userName) {
     return internalUserMap.get(userName);
   }
 
   public List<UserDTOFromMainService> getAllUsersDTO() {
     return internalUserMap.values().stream().collect(Collectors.toList());
-  }
+  }*/
 
   //Commentage de cette méthode
   /*public VisitedLocation getUserLocation(UserDTO userDTO) {
@@ -76,9 +76,9 @@ public class LocationMS {
   }*/
 
   //add method to mimic running
-  public String getUserLocationCheck(String userName) {
+  /*public String getUserLocationCheck(String userName) {
     return userName;
-  }
+  }*/
 
   //Commentage de cette méthode suite au dernière modification
   /*public VisitedLocation trackUserLocation(UserDTOToMainService userDTOToMainService) {
@@ -87,7 +87,7 @@ public class LocationMS {
     return visitedLocation;
   }*/
 
-  public List<Attraction> getNearByAttractions(VisitedLocation visitedLocation) {
+  /*public List<Attraction> getNearByAttractions(VisitedLocation visitedLocation) {
     List<Attraction> nearbyAttractions = new ArrayList<>();
     for(Attraction attraction : gpsUtil.getAttractions()) {
       if(isWithinAttractionProximity(attraction, visitedLocation.location)) {
@@ -111,7 +111,7 @@ public class LocationMS {
     double nauticalMiles = 60 * Math.toDegrees(angle);
     double statuteMiles = STATUTE_MILES_PER_NAUTICAL_MILE * nauticalMiles;
     return statuteMiles;
-  }
+  }*/
 
   //Commentage de cette méthode suite au dernière modification
   /*public List<VisitedLocationResponse> getVisitedLocations(UserDTOToMainService userDTOToMainService) {
@@ -124,7 +124,7 @@ public class LocationMS {
     return visitedLocationResponse;
   }*/
 
-  public List<AttractionResponse> getAttractions() {
+  /*public List<AttractionResponse> getAttractions() {
     List<Attraction> attractionList = gpsUtil.getAttractions();
     List<AttractionResponse> attractionResponseList = new ArrayList<>();
     for(Attraction attraction : attractionList) {
@@ -132,7 +132,7 @@ public class LocationMS {
       attractionResponseList.add(attractionResponse);
     }
     return attractionResponseList;
-  }
+  }*/
   /*public AttractionResponse getAttraction(int attractionNumber) {
     return mapService.convertAttractionToAttractionResponse(gpsUtil.getAttractions().get(attractionNumber));
   }*/
@@ -144,24 +144,24 @@ public class LocationMS {
    **********************************************************************************/
   //private static final String tripPricerApiKey = "test-server-api-key";
   // Database connection will be used for external users, but for testing purposes internal users are provided and stored in memory
-  private final Map<String, UserDTOFromMainService> internalUserMap = new HashMap<>();
+  //private final Map<String, UserDTOFromMainService> internalUserMap = new HashMap<>();
 
   //Modification de ces méthodes
-  private UserDTOFromMainService initializeInternalUser(String userName) {
+  /*private UserDTOFromMainService initializeInternalUser(String userName) {
       //Y appel au proxy directement et retour d'un UserDTOFromMainService
       UserDTOFromMainService userDTOFromMainService = userProxy.getUserDTOFromMainService(userName);
       generateUserLocationHistory(userDTOFromMainService);
       return userDTOFromMainService;
-  }
+  }*/
 
-  private void generateUserLocationHistory(UserDTOFromMainService userDTOFromMainService) {
+  /*private void generateUserLocationHistory(UserDTOFromMainService userDTOFromMainService) {
     IntStream.range(0, 3).forEach(i-> {
       //Y retrait de l'Id
       userDTOFromMainService.addToVisitedLocationResponseToMainServiceList(new VisitedLocationResponse(new LocationResponse(generateRandomLatitude(), generateRandomLongitude()), getRandomTime()));
     });
-  }
+  }*/
 
-  private double generateRandomLongitude() {
+  /*private double generateRandomLongitude() {
     double leftLimit = -180;
     double rightLimit = 180;
     return leftLimit + new Random().nextDouble() * (rightLimit - leftLimit);
@@ -176,6 +176,6 @@ public class LocationMS {
   private Date getRandomTime() {
     LocalDateTime localDateTime = LocalDateTime.now().minusDays(new Random().nextInt(30));
     return Date.from(localDateTime.toInstant(ZoneOffset.UTC));
-  }
+  }*/
 
 }

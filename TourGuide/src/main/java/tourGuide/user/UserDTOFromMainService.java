@@ -10,7 +10,7 @@ import tourGuide.gps.DTO.VisitedLocationResponse;
 @Data
 public class UserDTOFromMainService {
 
-  private UUID userId;
+  /*private UUID userId;
   private String userName;
   private String phoneNumber;
   private String emailAddress;
@@ -18,6 +18,6 @@ public class UserDTOFromMainService {
 
   public void addToVisitedLocationResponseToMainServiceList(VisitedLocationResponse visitedLocationResponse) {
     visitedLocationResponseList.add(visitedLocationResponse);
-  }
+  }*/
 
 }

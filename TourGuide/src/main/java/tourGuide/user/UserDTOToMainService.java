@@ -14,8 +14,8 @@ public class UserDTOToMainService {
   private String userName;
   private String phoneNumber;
   private String emailAddress;*/
-  private Date latestLocationTimestamp;
-  private List<VisitedLocationResponse> visitedLocationResponseList = new ArrayList<>();
+  //private Date latestLocationTimestamp;
+  //private List<VisitedLocationResponse> visitedLocationResponseList = new ArrayList<>();
 
   /*public void addToVisitedLocationResponseList(VisitedLocationResponse visitedLocationResponse) {
     visitedLocationResponseList.add(visitedLocationResponse);

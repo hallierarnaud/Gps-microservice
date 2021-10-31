@@ -10,7 +10,7 @@ import tourGuide.user.UserDTOFromMainService;
 @FeignClient(name = "tourGuide-application", url = "localhost:8080")
 public interface UserProxy {
 
-  @GetMapping(value = "/getUserThroughApplication")
+  /*@GetMapping(value = "/getUserThroughApplication")
   UserDTOToMainService getUserThroughApplication(@RequestParam String userName);
 
   //add an endpoint to get userName through application
@@ -26,6 +26,6 @@ public interface UserProxy {
   //Utilisation de cet endpoint
   //add an endpoint to get userDTO through application
   @GetMapping(value = "/userDTOFromMainService")
-  UserDTOFromMainService getUserDTOFromMainService(@RequestParam String userName);
+  UserDTOFromMainService getUserDTOFromMainService(@RequestParam String userName);*/
 
 }

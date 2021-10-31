@@ -14,7 +14,7 @@ import tourGuide.user.UserDTOToMainService;
 @RestController
 public class TourGuideController {
 
-	@Autowired
+	/*@Autowired
     LocationMS locationMS;
 
 	@Autowired
@@ -23,7 +23,7 @@ public class TourGuideController {
     @RequestMapping("/")
     public String index() {
         return "Greetings from TourGuide!";
-    }
+    }*/
     
     /*@RequestMapping("/getLocation")
     public String getLocation(@RequestParam String userName) {
@@ -62,7 +62,7 @@ public class TourGuideController {
     	return JsonStream.serialize(locationMS.getNearByAttractions(visitedLocation));
     }*/
     
-    @RequestMapping("/getAllCurrentLocations")
+    /*@RequestMapping("/getAllCurrentLocations")
     public String getAllCurrentLocations() {
     	// TODO: Get a list of every user's most recent location as JSON
     	//- Note: does not use gpsUtil to query for their current location, 
@@ -75,7 +75,7 @@ public class TourGuideController {
     	//     }
     	
     	return JsonStream.serialize("");
-    }
+    }*/
 
     //Commentage de cette méthode suite au dernière modification
     /*@GetMapping("/getVisitedLocations")
@@ -92,11 +92,11 @@ public class TourGuideController {
         return locationMS.getAttraction(attractionNumber);
     }*/
 
-    private UserDTOToMainService getUserDTO(String userName) {
+    /*private UserDTOToMainService getUserDTO(String userName) {
     	return locationMS.returnModifiedUserDTOToMainService(userName);
-    }
+    }*/
 
-    @GetMapping("/getUserThroughApplication")
+    /*@GetMapping("/getUserThroughApplication")
     public UserDTOToMainService getUserDTOThroughApplication(String userName) {
       return userProxy.getUserThroughApplication(userName);
     }
@@ -105,7 +105,7 @@ public class TourGuideController {
     @GetMapping("/getUser")
     public UserDTOToMainService getUserThroughEndPoint(String userName) {
       return userProxy.getUserThroughEndPoint(userName);
-    }
+    }*/
 
 
 /*Y
@@ -120,15 +120,15 @@ public class TourGuideController {
 
     //Utilisation de cet endpoint
     //add an endpoint to get user directly through GpsIsolation
-    @GetMapping("/userDTOFromGpsService")
+    /*@GetMapping("/userDTOFromGpsService")
     public UserDTOToMainService getUserDTOToMainService(String userName) {
       return locationMS.returnModifiedUserDTOToMainService(userName);
-    }
+    }*/
 
 
 
     //add two endpoints to enable communication between application and microservice
-    @GetMapping("/getUserNameCheck")
+    /*@GetMapping("/getUserNameCheck")
     public String getUsernameCheckThroughApplication(String userName) {
       return userProxy.getUserNameCheckThroughApplication(userName);
     }
@@ -136,6 +136,6 @@ public class TourGuideController {
     public String getLocationCheckWithUserThroughApplication(String userName) {
       String visitedLocation = locationMS.getUserLocationCheck(getUsernameCheckThroughApplication(userName));
       return visitedLocation;
-    }
+    }*/
 
 }
