@@ -31,7 +31,7 @@ public class MapService {
 
   public VisitedLocationResponse convertVisitedLocationToVisitedLocationResponse(VisitedLocation visitedLocation) {
     VisitedLocationResponse visitedLocationResponse = new VisitedLocationResponse();
-    //Y visitedLocationResponseToMainService.setUserId(visitedLocation.userId);
+    visitedLocationResponse.setUserId(visitedLocation.userId);
     visitedLocationResponse.setLocationResponse(convertLocationToLocationResponse(visitedLocation.location));
     visitedLocationResponse.setTimeVisited(visitedLocation.timeVisited);
     return visitedLocationResponse;
