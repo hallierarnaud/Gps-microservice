@@ -2,7 +2,6 @@ package tourGuide.gps.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,14 +18,13 @@ import tourGuide.gps.DTO.VisitedLocationResponse;
 @Service
 public class GpsService {
 
-  @Autowired
-  private MapService mapService;
-
   private Logger logger = LoggerFactory.getLogger(GpsService.class);
   private final GpsUtil gpsUtil;
+  private final MapService mapService;
 
-  public GpsService(GpsUtil gpsUtil) {
+  public GpsService(GpsUtil gpsUtil, MapService mapService) {
     this.gpsUtil = gpsUtil;
+    this.mapService = mapService;
   }
 
   public VisitedLocationResponse trackUserLocation(UUID userId) {

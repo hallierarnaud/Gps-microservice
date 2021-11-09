@@ -12,7 +12,6 @@ import java.util.concurrent.TimeUnit;
 import gpsUtil.GpsUtil;
 import gpsUtil.location.Attraction;
 import gpsUtil.location.VisitedLocation;
-import tourGuide.helper.InternalTestHelper;
 
 import static org.junit.Assert.assertTrue;
 
