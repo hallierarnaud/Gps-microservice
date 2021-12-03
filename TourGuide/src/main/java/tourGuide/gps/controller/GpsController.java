@@ -18,11 +18,20 @@ public class GpsController {
   @Autowired
   private GpsService gpsService;
 
+  /**
+   *
+   * @param userId an id of a user
+   * @return the user current location
+   */
   @GetMapping("/trackUserLocations")
   public VisitedLocationResponse getUserLocation(@RequestParam UUID userId) {
     return gpsService.trackUserLocation(userId);
   }
 
+  /**
+   *
+   * @return a list of attractions
+   */
   @GetMapping("/attractions")
   public List<AttractionResponse> getAttractions() {
     return gpsService.getAttractions();
