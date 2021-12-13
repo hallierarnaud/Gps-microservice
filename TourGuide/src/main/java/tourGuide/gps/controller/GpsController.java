@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.UUID;
 
+import lombok.extern.slf4j.Slf4j;
 import tourGuide.gps.DTO.AttractionResponse;
 import tourGuide.gps.DTO.VisitedLocationResponse;
 import tourGuide.gps.service.GpsService;
 
+@Slf4j
 @RestController
 public class GpsController {
 
@@ -25,6 +27,7 @@ public class GpsController {
    */
   @GetMapping("/trackUserLocations")
   public VisitedLocationResponse getUserLocation(@RequestParam UUID userId) {
+    log.info("call tracker");
     return gpsService.trackUserLocation(userId);
   }
 
